@@ -25,7 +25,8 @@ class PointsController {
 
     // this variable has the values captured from request.body and is ready to be inserted in the database
     const point = {
-      image: "image-fake",
+      image:
+        "https://images.unsplash.com/photo-1515706886582-54c73c5eaf41?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
       name,
       email,
       whatsapp,
