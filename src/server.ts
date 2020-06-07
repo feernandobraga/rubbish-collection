@@ -1,9 +1,12 @@
 import express, { response, request, json } from "express";
 import routes from "./routes";
 import path from "path";
+import cors from "cors";
 
 // express is what manages the routes
 const app = express();
+
+app.use(cors());
 
 // this is to tell express that this is a JSON based API
 app.use(express.json());
