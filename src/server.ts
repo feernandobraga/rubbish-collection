@@ -1,5 +1,6 @@
 import express, { response, request, json } from "express";
 import routes from "./routes";
+import path from "path";
 
 // express is what manages the routes
 const app = express();
@@ -8,6 +9,9 @@ const app = express();
 app.use(express.json());
 
 app.use(routes);
+
+// this creates a static route so the images are accessible
+app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads")));
 
 // const users = ["Fernando", "Cris", "John", "Sam"];
 

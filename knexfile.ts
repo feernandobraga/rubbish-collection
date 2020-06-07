@@ -12,5 +12,8 @@ module.exports = {
   migrations: {
     directory: path.resolve(__dirname, "src", "database", "migrations"), // this points to the migrations folder
   },
+  seeds: {
+    directory: path.resolve(__dirname, "src", "database", "seeds"),
+  },
   useNullAsDefault: true, // this is just to get rid of a warning message when we run the migration
 };

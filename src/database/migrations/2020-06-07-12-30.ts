@@ -16,7 +16,7 @@ export async function up(knex: Knex) {
     table.decimal("latitude").notNullable;
     table.decimal("longitude").notNullable;
     table.string("city").notNullable;
-    table.string("state", 2).notNullable; //2 is the length of the field
+    table.string("state", 3).notNullable; //3 is the length of the field
   });
 }
 
