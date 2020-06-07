@@ -59,6 +59,9 @@ class PointsController {
     // this insert will insert the point_id and each individual item_id associated to that point
     await trx("point_items").insert(pointItems);
 
+    // before sending the results back, we need to commit the transaction
+    await trx.commit();
+
     // the create method returns the ID captured when something was inserted in the "points table" along with the
     // variable point, which contains all information captured from the request.body
     return response.json({
@@ -87,7 +90,38 @@ class PointsController {
       */
 
     return response.json({ point, items });
-  }
+  } // end show()
+
+  async index(request: Request, response: Response) {
+    const { city, state, items } = request.query;
+    /*  SAME AS
+        const city = request.query.city
+        const state = request.query.state
+        const items = request.query.state
+    */
+
+    // gets all items form the request.query, remove the coma, trim the space and save into the parsedItems[]
+    const parsedItems = String(items)
+      .split(",")
+      .map(item => Number(item.trim()));
+
+    const points = await knex("points")
+      .join("point_items", "points.id", "=", "point_items.point_id")
+      .whereIn("point_items.item_id", parsedItems)
+      .where("city", String(city))
+      .where("state", String(state))
+      .distinct()
+      .select("points.*");
+    /* 
+          SELECT distinct points.*
+          FROM points INNER JOIN point_items ON points.id == points_items.point_id
+          AND point_items.item_id IN [ {parsedItems} ]
+          AND city == {city}
+          AND state == {state}
+      */
+
+    return response.json(points);
+  } // end index()
 }
 
 export default PointsController;

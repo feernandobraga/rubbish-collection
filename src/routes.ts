@@ -13,6 +13,11 @@ const itemsController = new ItemsController();
 routes.get("/items", itemsController.index);
 
 /* 
+    GET localhost:3333/points?city=Melbourne&state=VIC&items=1,2
+*/
+routes.get("/points/", pointsController.index);
+
+/* 
     GET localhost:3333/points/1
 */
 routes.get("/points/:id", pointsController.show);
